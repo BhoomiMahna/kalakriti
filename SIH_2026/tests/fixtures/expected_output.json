@@ -1,0 +1,58 @@
+{
+  "language": {
+    "code": "pa",
+    "name": "Punjabi"
+  },
+  "transcription": {
+    "original": "ਇਹ ਫੁਲਕਾਰੀ ਦਾ ਦੁਪੱਟਾ ਹੈ। ਇਹ ਅਸੀਂ ਹੱਥ ਨਾਲ ਬਣਾਇਆ ਹੈ। ਇਸ ਵਿੱਚ ਸੂਤੀ ਕੱਪੜਾ ਵਰਤਿਆ ਹੈ ਅਤੇ ਇਸ ਉੱਤੇ ਲਾਲ ਤੇ ਪੀਲੇ ਰੰਗ ਦੀ ਕਢਾਈ ਕੀਤੀ ਹੈ।"
+  },
+  "translation": {
+    "english": "This is a Phulkari dupatta. We made it by hand. It uses cotton fabric and has red and yellow embroidery."
+  },
+  "product_facts": {
+    "product_name": "Phulkari Dupatta",
+    "category": "Clothing",
+    "subcategory": "Dupatta",
+    "material": ["Cotton"],
+    "colors": ["Red", "Yellow"],
+    "dimensions": null,
+    "weight": null,
+    "craft_type": "Handmade",
+    "craft_technique": "Phulkari embroidery",
+    "production_method": "Handmade",
+    "region": null,
+    "production_time": null,
+    "usage": null,
+    "cultural_significance": null,
+    "care_instructions": null
+  },
+  "missing_fields": ["dimensions", "care_instructions"],
+  "follow_up_questions": [
+    {
+      "field": "dimensions",
+      "question_en": "What are the approximate dimensions of the dupatta?",
+      "question_local": "ਇਸ ਦੁਪੱਟੇ ਦਾ ਲਗਭਗ ਆਕਾਰ ਕੀ ਹੈ?"
+    },
+    {
+      "field": "care_instructions",
+      "question_en": "How should the dupatta be washed or cared for?",
+      "question_local": "ਇਸ ਦੁਪੱਟੇ ਨੂੰ ਕਿਵੇਂ ਧੋਣਾ ਚਾਹੀਦਾ ਹੈ?"
+    }
+  ],
+  "listing": {
+    "title": "Handcrafted Phulkari Cotton Dupatta with Red and Yellow Embroidery",
+    "short_description": "A hand-embroidered Phulkari dupatta crafted from cotton with vibrant red and yellow threadwork.",
+    "description": "This dupatta is handcrafted using the traditional Phulkari embroidery technique. Made from cotton fabric, it features detailed red and yellow embroidery that is applied entirely by hand.\n\nThe piece reflects the skilled handwork of its artisan, with each stitch placed carefully across the fabric.",
+    "highlights": [
+      "Handmade Phulkari embroidery",
+      "Made from cotton fabric",
+      "Red and yellow colour combination"
+    ],
+    "keywords": ["phulkari", "dupatta", "handmade", "cotton", "embroidery", "red", "yellow"]
+  },
+  "validation": {
+    "valid": true,
+    "unsupported_claims": [],
+    "notes": ""
+  }
+}

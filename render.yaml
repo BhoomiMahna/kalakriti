@@ -1,0 +1,34 @@
+# One-click Render blueprint for the Kalakriti backend (Docker).
+# In Render: New → Blueprint → point at this repo. Then set the two "sync:false"
+# secrets in the dashboard and fill FRONTEND_ORIGINS / API_BASE_URL after the
+# first deploy gives you URLs.
+services:
+  - type: web
+    name: kalakriti-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: OTP_DEV_MODE          # judges log in without an SMS gateway
+        value: "true"
+      - key: DEMO_MODE             # simulated Amazon/ONDC publishing
+        value: "true"
+      - key: IMAGE_DEMO_MODE       # curated before/after photoshoot
+        value: "true"
+      - key: INSTAGRAM_DEMO_MODE   # simulated Instagram posting
+        value: "true"
+      - key: ENABLE_AI_PIPELINE
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_ORIGINS      # your Vercel URL (comma-separated ok)
+        value: "https://REPLACE-WITH-YOUR-VERCEL-URL"
+      - key: API_BASE_URL          # this service's own public URL
+        value: "https://REPLACE-WITH-YOUR-RENDER-URL"
+      - key: SARVAM_API_KEY        # real voice STT/TTS (kept server-side)
+        sync: false
+      - key: GEMINI_API_KEY        # optional; offline fallbacks exist
+        sync: false

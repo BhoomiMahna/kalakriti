@@ -1,0 +1,45 @@
+# ─── Core ─────────────────────────────────────────────────────────────────────
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# ─── Audio preprocessing ──────────────────────────────────────────────────────
+pydub>=0.25.1
+librosa>=0.10.1
+soundfile>=0.12.1
+ffmpeg-python>=0.2.0
+# ffmpeg binary must also be installed on the system (https://ffmpeg.org/download.html)
+
+# ─── ASR – Whisper ────────────────────────────────────────────────────────────
+openai-whisper>=20231117
+# OR use transformers pipeline:
+transformers>=4.40.0
+accelerate>=0.27.0
+torch>=2.1.0
+
+# ─── Language detection fallback ──────────────────────────────────────────────
+langdetect>=1.0.9
+
+# ─── Translation – IndicTrans2 ────────────────────────────────────────────────
+# Primary: IndicTrans2 (clone from https://github.com/AI4Bharat/IndicTrans2)
+# After cloning, run: pip install -e ./IndicTrans2
+# The opus-mt fallback below requires no extra setup:
+sentencepiece>=0.1.99
+
+# ─── Translation fallback – Helsinki opus-mt ──────────────────────────────────
+sacremoses>=0.1.1
+
+# ─── LLM – Google Gemini ──────────────────────────────────────────────────────
+google-generativeai>=0.7.0
+
+# ─── LLM fallback – OpenAI ────────────────────────────────────────────────────
+openai>=1.30.0
+
+# ─── Evaluation ───────────────────────────────────────────────────────────────
+jiwer>=3.0.3            # WER / CER for ASR evaluation
+sacrebleu>=2.4.0        # BLEU / chrF for translation evaluation
+rouge-score>=0.1.2      # ROUGE-L for description readability baseline
+
+# ─── Testing ──────────────────────────────────────────────────────────────────
+pytest>=8.0.0
+pytest-asyncio>=0.23.0

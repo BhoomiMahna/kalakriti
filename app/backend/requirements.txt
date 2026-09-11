@@ -1,0 +1,39 @@
+# ── Web framework ──────────────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# ── Database ───────────────────────────────────────────────────────────────
+SQLAlchemy==2.0.36
+
+# ── Auth ───────────────────────────────────────────────────────────────────
+pyjwt==2.10.1
+passlib==1.7.4
+
+# ── HTTP client (marketplace APIs) ─────────────────────────────────────────
+httpx==0.28.1
+
+# ── Config ─────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── Pricing model (already trained; loaded from pricing_model.pkl) ──────────
+scikit-learn==1.6.1
+joblib==1.4.2
+pandas==2.2.3
+numpy==2.2.1
+Pillow==11.1.0
+
+# ── AI Product Photoshoot — real background removal + validation ────────────
+rembg==2.0.69                       # ML background removal (isolation pipeline)
+onnxruntime==1.23.2                 # rembg inference backend (CPU)
+imagehash==4.3.2                    # output validation (reject passthrough)
+
+# ── Instagram automation (artisans_ai.instagram) ───────────────────────────
+opencv-python-headless==4.12.0.88   # image quality / safety analysis
+google-genai==1.0.0                 # caption LLM (optional; offline fallback exists)
+
+# ── OPTIONAL: the full artisan_ai AI pipeline (heavy).  Install separately  ──
+# from ../../SIH_2026/requirements.txt when you want the real ASR / translation
+# / Gemini extraction pipeline instead of the built-in graceful fallback.

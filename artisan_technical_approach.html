@@ -1,0 +1,439 @@
+<title>Kalakriti Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#E9E6DF; --slide:#FAF8F5; --ink:#181F38; --slate:#5B6479; --line:#E3DED4;
+    --blue:#2E6FB0; --blue-s:#EAF2FB;
+    --violet:#6D40C4; --violet-s:#F1EBFB;
+    --teal:#0F766E; --teal-s:#E3F1EF;
+    --terra:#C8631F; --terra-s:#FCEEE1;
+    --amber:#E08A1E; --green:#17A05B; --cyan:#0E9C9C;
+    --pink:#C2185B; --wa:#1EA362; --muted:#8A90A0; --muted-s:#F1F1F3;
+    color-scheme: light;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(1200px 600px at 15% -10%, #F0ECE4, transparent),
+      radial-gradient(1000px 700px at 110% 120%, #EFEAE1, transparent),
+      var(--ground);
+    font-family:"Manrope",system-ui,sans-serif;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2vmin}
+  .stage{position:relative;width:min(97vw, calc(96vh * 16 / 9));aspect-ratio:16/9;
+    background:linear-gradient(180deg,#FFFFFF, var(--slide));
+    border:1px solid #EDE7DC;border-radius:1.4cqw;overflow:hidden;
+    box-shadow:0 3cqw 6cqw -2.4cqw rgba(24,31,56,.28), 0 .3cqw 1cqw rgba(24,31,56,.06);
+    container-type:inline-size}
+  .pad{position:absolute;inset:0;display:flex;flex-direction:column;padding:2.2cqw 2.4cqw 2cqw}
+
+  /* ---------- header ---------- */
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:2cqw;flex:0 0 auto}
+  .kicker{font-family:"Sora";font-weight:700;letter-spacing:.36em;font-size:.82cqw;color:var(--terra);text-transform:uppercase;margin:0 0 .3cqw}
+  h1{font-family:"Sora";font-weight:800;font-size:2.7cqw;letter-spacing:-.01em;margin:0;line-height:1;text-wrap:balance}
+  .sub{font-size:.92cqw;color:var(--slate);margin:.55cqw 0 0;font-weight:500}
+  .oneliner{display:flex;align-items:center;gap:.7cqw;flex:0 0 auto;
+    background:linear-gradient(90deg,var(--terra-s),#fff);border:1px solid #F1D9C4;border-radius:.7cqw;
+    padding:.7cqw .95cqw;font-family:"Sora";font-weight:700;font-size:.86cqw;color:#8A3B12;white-space:nowrap}
+  .oneliner b{color:var(--terra)}
+  .oneliner .a{color:var(--violet)} .oneliner .c{color:var(--teal)}
+  .chev{color:#D7A574;font-weight:800}
+
+  /* ---------- board ---------- */
+  .board{flex:1 1 auto;display:grid;
+    grid-template-columns:15.5fr 3fr 33fr 3.4fr 20fr 3.4fr 19fr;gap:.2cqw;align-items:stretch;margin-top:1.5cqw}
+  .zone{position:relative;display:flex;flex-direction:column;min-width:0}
+  .znum{position:absolute;top:-.2cqw;left:-.2cqw;width:2.05cqw;height:2.05cqw;border-radius:50%;
+    display:grid;place-items:center;font-family:"Sora";font-weight:800;font-size:1.02cqw;color:#fff;z-index:3;
+    box-shadow:0 .3cqw .7cqw rgba(24,31,56,.22)}
+  .zhead{font-family:"Sora";font-weight:700;font-size:.9cqw;letter-spacing:.02em;margin:0 0 .7cqw .1cqw;
+    padding-left:2.4cqw;min-height:2.05cqw;display:flex;align-items:center;line-height:1.05}
+
+  /* flow chevrons between zones */
+  .flow{display:flex;align-items:center;justify-content:center}
+  .flow svg{width:2.2cqw;height:2.2cqw}
+
+  /* cards / chips */
+  .card{background:#fff;border:1px solid var(--line);border-radius:.85cqw;
+    box-shadow:0 .55cqw 1.3cqw -.6cqw rgba(24,31,56,.16)}
+  .chip{display:flex;align-items:center;gap:.5cqw;background:#fff;border:1px solid var(--line);
+    border-radius:.7cqw;padding:.5cqw .6cqw;font-size:.78cqw;font-weight:600}
+  .chip .ic{flex:0 0 auto}
+  .lab{font-size:.66cqw;font-weight:700;letter-spacing:.02em;color:var(--slate);text-transform:uppercase}
+  .tiny{font-size:.66cqw;color:var(--slate);font-weight:500}
+  .ar{color:var(--muted);font-weight:800;font-size:.9cqw}
+
+  /* icon sizing */
+  .ic{display:inline-flex} .ic svg{display:block}
+  .i16 svg{width:1.05cqw;height:1.05cqw}
+  .i22 svg{width:1.5cqw;height:1.5cqw}
+  .i28 svg{width:1.9cqw;height:1.9cqw}
+
+  /* ---- ZONE 1 : artisan ---- */
+  .z1 .stack{display:flex;flex-direction:column;gap:.7cqw;height:100%}
+  .artisan{display:flex;flex-direction:column;align-items:center;gap:.45cqw;padding:.8cqw;
+    background:linear-gradient(180deg,var(--blue-s),#fff)}
+  .artisan .name{font-family:"Sora";font-weight:700;font-size:.82cqw}
+  .phone{align-self:center;width:6.4cqw;height:9.4cqw;border-radius:1.1cqw;background:linear-gradient(160deg,#20408A,#2E6FB0);
+    padding:.5cqw;box-shadow:0 1cqw 1.8cqw -.5cqw rgba(46,111,176,.5);position:relative}
+  .phone .screen{background:#fff;border-radius:.7cqw;height:100%;display:flex;flex-direction:column;gap:.32cqw;padding:.5cqw;align-items:center;justify-content:center}
+  .phone .glang{display:flex;gap:.22cqw;flex-wrap:wrap;justify-content:center}
+  .phone .glang span{font-size:.56cqw;font-weight:700;background:var(--blue-s);color:var(--blue);border-radius:.4cqw;padding:.12cqw .3cqw}
+  .miniio{display:flex;gap:.4cqw}
+  .miniio .b{flex:1;display:flex;flex-direction:column;align-items:center;gap:.25cqw;background:#fff;border:1px solid var(--line);border-radius:.6cqw;padding:.5cqw .2cqw;font-size:.62cqw;font-weight:700;text-align:center}
+  .z1 .foot{margin-top:auto;text-align:center;font-family:"Sora";font-weight:700;font-size:.72cqw;color:var(--blue);
+    background:var(--blue-s);border-radius:.6cqw;padding:.45cqw}
+
+  /* ---- ZONE 2 : AI engine ---- */
+  .z2 .grid2{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.7cqw;height:100%}
+  .mod{position:relative;padding:.72cqw;display:flex;flex-direction:column;gap:.5cqw;overflow:hidden}
+  .mod::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.34cqw;border-radius:.85cqw 0 0 .85cqw}
+  .mod.v::before{background:var(--violet)} .mod.t::before{background:var(--cyan)}
+  .mod.a::before{background:var(--amber)} .mod.g::before{background:var(--green)}
+  .mtitle{display:flex;align-items:center;gap:.5cqw;font-family:"Sora";font-weight:700;font-size:.82cqw}
+  .mtag{margin-left:auto;font-size:.58cqw;font-weight:700;color:var(--slate);background:var(--muted-s);border-radius:.4cqw;padding:.12cqw .35cqw;letter-spacing:.02em}
+  .mflow{display:flex;align-items:center;gap:.34cqw}
+  .node{flex:1;display:flex;flex-direction:column;align-items:center;gap:.24cqw;text-align:center;
+    background:#fff;border:1px solid var(--line);border-radius:.6cqw;padding:.42cqw .2cqw;font-size:.6cqw;font-weight:700;line-height:1.05;min-width:0}
+  .node.hi{color:#fff;border:none}
+  .node small{font-weight:600;color:var(--slate);font-size:.55cqw}
+  .thumb{width:100%;height:1.5cqw;border-radius:.35cqw;background:linear-gradient(135deg,#cbd5e1,#94a3b8)}
+  .thumb.pro{background:linear-gradient(135deg,#EDE7FB,#C9B4F2);position:relative}
+  .wave{display:flex;align-items:center;gap:.12cqw;height:1.4cqw}
+  .wave i{width:.16cqw;background:var(--cyan);border-radius:.1cqw}
+  .outs{display:flex;gap:.3cqw;flex-wrap:wrap}
+  .outs span{font-size:.58cqw;font-weight:700;border-radius:.4cqw;padding:.14cqw .36cqw}
+  .price{font-family:"Sora";font-weight:800;font-size:1.42cqw;color:var(--green);line-height:1;font-variant-numeric:tabular-nums}
+  .prange{font-size:.62cqw;font-weight:700;color:var(--slate);font-variant-numeric:tabular-nums}
+  .note{font-size:.58cqw;color:var(--slate);font-weight:600;font-style:italic}
+  .engine-foot{margin-top:.7cqw;display:flex;align-items:center;justify-content:center;gap:.7cqw;
+    font-size:.62cqw;font-weight:700;color:var(--violet);background:var(--violet-s);border-radius:.6cqw;padding:.4cqw}
+  .engine-foot span{opacity:.75;color:#4B2E86;font-weight:600}
+
+  /* ---- ZONE 3 : canonical ---- */
+  .z3 .stack{display:flex;flex-direction:column;gap:.7cqw;height:100%}
+  .pcard{background:linear-gradient(180deg,#fff,#F4FBF9);border:1.5px solid var(--teal);border-radius:.9cqw;
+    overflow:hidden;box-shadow:0 1cqw 2cqw -.7cqw rgba(15,118,110,.35)}
+  .pcard .img{height:4.3cqw;background:
+      radial-gradient(60% 80% at 50% 30%, #F3EDE2, #E7DBC7);position:relative;display:grid;place-items:center}
+  .pcard .img .vase{width:2.1cqw;height:3cqw;border-radius:40% 40% 46% 46% / 26% 26% 74% 74%;
+    background:linear-gradient(160deg,#C4632B,#9B3F1C);box-shadow:inset -.25cqw -.2cqw .6cqw rgba(0,0,0,.25)}
+  .pcard .img .neck{position:absolute;top:.9cqw;width:1.15cqw;height:.55cqw;background:#7d3417;border-radius:.15cqw}
+  .pcard .badge{position:absolute;top:.5cqw;left:.5cqw;font-size:.56cqw;font-weight:800;color:#fff;background:var(--teal);border-radius:.4cqw;padding:.14cqw .4cqw;letter-spacing:.03em;z-index:2}
+  .pcard .bagimg svg{width:5.6cqw;height:4.3cqw;filter:drop-shadow(0 .5cqw .6cqw rgba(30,50,90,.28))}
+  .pcard .body{padding:.55cqw .7cqw .7cqw}
+  .pcard .ptitle{font-family:"Sora";font-weight:700;font-size:.86cqw;line-height:1.05}
+  .pcard .prow{display:flex;align-items:baseline;justify-content:space-between;margin-top:.2cqw}
+  .pcard .pprice{font-family:"Sora";font-weight:800;font-size:1.3cqw;color:var(--teal);font-variant-numeric:tabular-nums}
+  .pcard .pmeta{font-size:.58cqw;color:var(--slate);font-weight:600}
+  .attrs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.34cqw}
+  .attrs .a{display:flex;align-items:center;gap:.3cqw;background:#fff;border:1px solid var(--line);border-radius:.5cqw;
+    padding:.32cqw .3cqw;font-size:.58cqw;font-weight:700;color:#3f4658}
+  .adapter{margin-top:auto;background:linear-gradient(120deg,var(--teal),#12a093);color:#fff;border-radius:.7cqw;
+    padding:.6cqw .7cqw;display:flex;align-items:center;gap:.6cqw;box-shadow:0 .7cqw 1.4cqw -.6cqw rgba(15,118,110,.6)}
+  .adapter .t{font-family:"Sora";font-weight:800;font-size:.8cqw;line-height:1.05}
+  .adapter .t small{display:block;font-weight:600;font-size:.6cqw;opacity:.9;margin-top:.12cqw}
+  .converge{position:absolute;left:-2.7cqw;top:0;bottom:0;width:2.7cqw;pointer-events:none;z-index:2}
+
+  /* ---- ZONE 4 : publishing ---- */
+  .z4 .stack{display:flex;flex-direction:column;gap:.6cqw;height:100%}
+  .chan{display:flex;align-items:center;gap:.6cqw;padding:.6cqw .65cqw}
+  .chan .logo{width:2.6cqw;height:2.6cqw;border-radius:.6cqw;display:grid;place-items:center;flex:0 0 auto}
+  .chan .meta{min-width:0}
+  .chan .nm{font-family:"Sora";font-weight:700;font-size:.82cqw;display:flex;align-items:center;gap:.4cqw}
+  .chan .api{font-size:.6cqw;color:var(--slate);font-weight:600}
+  .live{margin-left:auto;display:flex;align-items:center;gap:.28cqw;font-size:.64cqw;font-weight:800;color:var(--green)}
+  .dot{width:.5cqw;height:.5cqw;border-radius:50%;background:var(--green);box-shadow:0 0 0 .18cqw rgba(23,160,91,.2)}
+  .demo{border:1.4px dashed var(--amber);background:linear-gradient(180deg,#FFFBEE,#fff);border-radius:.8cqw;padding:.6cqw .7cqw;margin-top:auto}
+  .demo .dh{display:flex;align-items:center;gap:.45cqw;font-family:"Sora";font-weight:800;font-size:.76cqw;color:#8A5A00}
+  .browser{margin:.45cqw 0;border:1px solid #EAD9A8;border-radius:.5cqw;overflow:hidden;background:#fff}
+  .browser .bar{display:flex;align-items:center;gap:.24cqw;padding:.28cqw .4cqw;background:#F6EFDA}
+  .browser .bar i{width:.36cqw;height:.36cqw;border-radius:50%;background:#D9C48A}
+  .browser .bar .url{margin-left:.3cqw;font-size:.52cqw;color:#9a854f;font-weight:600}
+  .browser .pg{display:flex;gap:.4cqw;padding:.4cqw}
+  .browser .pg .im{width:1.7cqw;height:1.7cqw;border-radius:.3cqw;background:linear-gradient(150deg,#5A7CAE,#3C5B8A)}
+  .browser .pg .tx{flex:1;display:flex;flex-direction:column;gap:.2cqw;justify-content:center}
+  .browser .pg .tx b{font-size:.56cqw;font-family:"Sora";font-weight:700}
+  .browser .pg .tx u{text-decoration:none;font-size:.62cqw;font-weight:800;color:var(--teal)}
+  .demo .cap{font-size:.55cqw;color:#7A5A00;font-weight:600;line-height:1.25}
+  .demo .tagp{display:inline-block;font-size:.55cqw;font-weight:800;color:#fff;background:var(--amber);border-radius:.35cqw;padding:.1cqw .35cqw;margin-bottom:.25cqw}
+
+  /* ---- ZONE 5 : future ---- */
+  footer{flex:0 0 auto;margin-top:1.2cqw;position:relative;border:1.4px dashed #C7CBD6;border-radius:.9cqw;
+    background:linear-gradient(90deg,#F3F3F6,#FAFAFB);padding:.85cqw 1.1cqw;display:flex;align-items:center;gap:1.3cqw}
+  .fnum{position:absolute;top:-1cqw;left:1cqw}
+  .fbadge{font-family:"Sora";font-weight:800;font-size:.72cqw;letter-spacing:.16em;color:var(--muted);
+    writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase;padding:.2cqw 0}
+  .flabel{flex:0 0 auto}
+  .flabel .ttl{font-family:"Sora";font-weight:800;font-size:1.05cqw}
+  .flabel .ds{font-size:.68cqw;color:var(--slate);font-weight:500;max-width:15cqw;margin-top:.15cqw}
+  .fmid{display:flex;align-items:center;gap:.7cqw;flex:0 0 auto}
+  .socialhub{display:flex;align-items:center;gap:.5cqw;background:#fff;border:1px solid var(--line);border-radius:.7cqw;padding:.55cqw .7cqw;font-family:"Sora";font-weight:700;font-size:.76cqw}
+  .fsoc{display:flex;gap:.9cqw;flex:1;min-width:0}
+  .soc{flex:1;display:flex;align-items:center;gap:.6cqw;border-radius:.75cqw;padding:.6cqw .75cqw;color:#fff;min-width:0}
+  .soc.ig{background:linear-gradient(120deg,#F58529,#DD2A7B 55%,#8134AF)}
+  .soc.wa{background:linear-gradient(120deg,#25D366,#128C7E)}
+  .soc .logo{width:2.3cqw;height:2.3cqw;border-radius:.55cqw;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:0 0 auto}
+  .soc .nm{font-family:"Sora";font-weight:800;font-size:.82cqw}
+  .soc .it{font-size:.62cqw;font-weight:600;opacity:.95;line-height:1.2}
+  .fscope{position:absolute;right:1cqw;top:.5cqw;font-family:"Sora";font-weight:800;font-size:.6cqw;letter-spacing:.18em;color:var(--muted);border:1px solid #CfD2DA;border-radius:.4cqw;padding:.15cqw .4cqw}
+
+  @media (max-width:640px){ .sub{display:none} }
+</style>
+
+<!-- ===== ICON SPRITE ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#6D40C4"/></linearGradient>
+    <linearGradient id="gt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22C3C3"/><stop offset="1" stop-color="#0E9C9C"/></linearGradient>
+    <linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2FD07E"/><stop offset="1" stop-color="#17A05B"/></linearGradient>
+    <linearGradient id="denim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A7CAE"/><stop offset="1" stop-color="#3C5B8A"/></linearGradient>
+  </defs>
+  <symbol id="ic-artisan" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.6" fill="#2E6FB0"/><path d="M4.5 20c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="#8FB6DC"/><path d="M9 6.4 12 3l3 3.4" fill="none" stroke="#20408A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-cam" viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="19" height="13" rx="2.6" fill="#2E6FB0"/><path d="M8 6.5l1.4-2h5.2L16 6.5" fill="#2E6FB0"/><circle cx="12" cy="13" r="3.4" fill="#fff"/><circle cx="12" cy="13" r="1.8" fill="#2E6FB0"/></symbol>
+  <symbol id="ic-mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="#0E9C9C"/><path d="M6 11.5a6 6 0 0 0 12 0" fill="none" stroke="#0E9C9C" stroke-width="1.7" stroke-linecap="round"/><path d="M12 17.5V21M8.5 21h7" stroke="#0E9C9C" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="ic-ai" viewBox="0 0 24 24"><path d="M12 2.4l1.9 3.9 4.3.6-3.1 3 .8 4.2L12 12.1 8.1 14.1l.8-4.2-3.1-3 4.3-.6z" fill="url(#gv)"/><circle cx="6" cy="18.5" r="1.5" fill="url(#gv)"/><circle cx="18" cy="18.5" r="1.5" fill="url(#gv)"/><path d="M8 12.5 6 17M16 12.5l2 4.5" stroke="url(#gv)" stroke-width="1.2"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24"><path d="M6 2.5h8l4 4v15H6z" fill="#fff" stroke="#E08A1E" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2.5v4h4" fill="none" stroke="#E08A1E" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 11h7M8.5 14h7M8.5 17h4" stroke="#E08A1E" stroke-width="1.4" stroke-linecap="round"/></symbol>
+  <symbol id="ic-story" viewBox="0 0 24 24"><path d="M4 4.5h7v15H5.5A1.5 1.5 0 0 1 4 18z" fill="#F3D9AE"/><path d="M20 4.5h-7v15h5.5A1.5 1.5 0 0 0 20 18z" fill="#fff" stroke="#E08A1E" stroke-width="1.3"/><path d="M6 8h3M6 11h3M15 8h3M15 11h3" stroke="#B9781A" stroke-width="1.2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-rupee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="url(#gg)"/><path d="M8.5 7.2h7M8.5 10h7M14.2 7.2c1.6 0 2.4 1.2 2.4 2.8 0 2-1.6 2.9-3.4 2.9H10l4.6 4.9" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-chart" viewBox="0 0 24 24"><path d="M3 20h18" stroke="#17A05B" stroke-width="1.6" stroke-linecap="round"/><rect x="5" y="12" width="3" height="7" rx="1" fill="#B7ECCB"/><rect x="10.5" y="8" width="3" height="11" rx="1" fill="#5FCF93"/><rect x="16" y="5" width="3" height="14" rx="1" fill="#17A05B"/></symbol>
+  <symbol id="ic-product" viewBox="0 0 24 24"><path d="M12 2.5l8 4v11l-8 4-8-4v-11z" fill="#fff" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 6.5l8 4 8-4M12 10.5v11" fill="none" stroke="#0F766E" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-img" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2" fill="#E3F1EF" stroke="#0F766E" stroke-width="1.3"/><circle cx="8.5" cy="9.5" r="1.6" fill="#0F766E"/><path d="M4 17l5-4 4 3 3-2 4 3" fill="none" stroke="#0F766E" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-tag" viewBox="0 0 24 24"><path d="M4 11.5V4.5h7l9 9-7 7z" fill="#E3F1EF" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="#0F766E"/></symbol>
+  <symbol id="ic-plug" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.2" fill="#fff"/><circle cx="12" cy="6" r="2.2" fill="#fff"/><circle cx="12" cy="18" r="2.2" fill="#fff"/><circle cx="18" cy="12" r="2.2" fill="#fff"/><path d="M8 11l2.4-3.4M8 13l2.4 3.4M14 7.5 16.4 11M14 16.5 16.4 13" stroke="#fff" stroke-width="1.4"/></symbol>
+  <symbol id="ic-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7z" fill="#fff" stroke="#C8631F" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="#C8631F" stroke-width="1.5" stroke-linecap="round"/><path d="M8.5 17.5c1.6 1.4 5.4 1.4 7 0" fill="none" stroke="#C8631F" stroke-width="1.4" stroke-linecap="round"/></symbol>
+  <symbol id="ic-net" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4" fill="#0E9C9C"/><circle cx="5" cy="18" r="2.4" fill="#7AC9C9"/><circle cx="19" cy="18" r="2.4" fill="#7AC9C9"/><circle cx="12" cy="13" r="2.2" fill="#0F766E"/><path d="M12 7.2v3.4M10.4 14.4 6.6 16.4M13.6 14.4l3.8 2" stroke="#0F766E" stroke-width="1.3"/></symbol>
+  <symbol id="ic-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="17" cy="7" r="1.2" fill="#fff"/></symbol>
+  <symbol id="ic-wa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8.5c-.3 2 .8 4 2.3 5.2s3.4 1.8 4.2 1.2c.5-.4.7-1 .4-1.5-.2-.3-1.4-.9-1.8-.9s-.7.6-1 .6c-.6 0-2.4-1.4-2.4-2.3 0-.3.5-.5.6-.9s-.5-1.6-.8-1.8c-.4-.3-1.1-.1-1.5.4z" fill="#fff"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#17A05B"/><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#2E6FB0" stroke-width="1.5"/><path d="M3 12h18M12 3c2.6 2.4 2.6 15.6 0 18M12 3c-2.6 2.4-2.6 15.6 0 18" fill="none" stroke="#2E6FB0" stroke-width="1.3"/></symbol>
+  <symbol id="ic-arrowR" viewBox="0 0 24 24"><path d="M4 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-bagbig" viewBox="0 0 120 92">
+    <path d="M30 42 C 22 12, 98 12, 90 42" fill="none" stroke="#7A5433" stroke-width="6" stroke-linecap="round"/>
+    <rect x="24" y="34" width="72" height="48" rx="11" fill="url(#denim)"/>
+    <path d="M24 44 q36 20 72 0 v11 q-36 17 -72 0 z" fill="#33507C"/>
+    <rect x="53" y="49" width="14" height="10" rx="2.5" fill="#D8B252"/>
+    <rect x="56" y="52" width="8" height="4" rx="1.5" fill="#8A6E28"/>
+    <path d="M33 64 h54 M33 71 h54" stroke="#93ABCC" stroke-width="1.6" stroke-dasharray="3 3"/>
+    <path d="M28 40 q32 16 64 0" fill="none" stroke="#2C466E" stroke-width="1.4"/>
+  </symbol>
+</svg>
+
+<div class="stage">
+  <div class="pad">
+
+    <!-- HEADER -->
+    <header>
+      <div>
+        <p class="kicker">Tradition Meets Technology · Empowering Artisans Digitally</p>
+        <h1>TECHNICAL APPROACH</h1>
+        <p class="sub">AI-Powered Artisan Digitization &amp; Automated Multi-Channel Selling Platform</p>
+      </div>
+      <div class="oneliner">
+        <b>ONE INPUT</b><span class="chev">›</span><span class="a">AI DIGITIZATION</span><span class="chev">›</span><span class="c">ONE PRODUCT</span><span class="chev">›</span><b>AUTO DISTRIBUTION</b>
+      </div>
+    </header>
+
+    <!-- BOARD -->
+    <div class="board">
+
+      <!-- ZONE 1 -->
+      <div class="zone z1">
+        <span class="znum" style="background:var(--blue)">1</span>
+        <p class="zhead" style="color:var(--blue)">Artisan Onboarding &amp; Input</p>
+        <div class="stack">
+          <div class="card artisan">
+            <span class="ic i28"><svg><use href="#ic-artisan"/></svg></span>
+            <span class="name">Artisan</span>
+          </div>
+          <div class="phone">
+            <div class="screen">
+              <span class="ic i22"><svg><use href="#ic-globe"/></svg></span>
+              <div class="glang"><span>हिन्दी</span><span>ਪੰਜਾਬੀ</span><span>EN</span></div>
+              <span class="tiny" style="font-weight:700;color:var(--blue)">Mobile-first app</span>
+            </div>
+          </div>
+          <div class="miniio">
+            <div class="b"><span class="ic i16"><svg><use href="#ic-cam"/></svg></span>Product<br>Photo</div>
+            <div class="b"><span class="ic i16"><svg><use href="#ic-mic"/></svg></span>Voice<br>(local)</div>
+            <div class="b"><span class="ic i16"><svg><use href="#ic-artisan"/></svg></span>Profile<br>&amp; OTP</div>
+          </div>
+          <div class="foot">SIMPLE INPUT ONLY</div>
+        </div>
+      </div>
+
+      <div class="flow"><span class="ic" style="color:#C9C6BE"><svg style="width:2.1cqw;height:2.1cqw"><use href="#ic-arrowR"/></svg></span></div>
+
+      <!-- ZONE 2 -->
+      <div class="zone z2">
+        <span class="znum" style="background:var(--violet)">2</span>
+        <p class="zhead" style="color:var(--violet)">AI Product Digitization Engine</p>
+        <div class="grid2">
+
+          <!-- A photoshoot -->
+          <div class="card mod v">
+            <div class="mtitle"><span class="ic i16"><svg><use href="#ic-cam"/></svg></span>AI Product Photoshoot<span class="mtag">A</span></div>
+            <div class="mflow">
+              <div class="node"><div class="thumb"></div>Basic photo</div>
+              <span class="ar">›</span>
+              <div class="node" style="background:var(--violet-s);border-color:#E0D3F6"><span class="ic i22"><svg><use href="#ic-ai"/></svg></span>AI</div>
+              <span class="ar">›</span>
+              <div class="node"><div class="thumb pro"></div>Hero·Life·Detail</div>
+            </div>
+            <div class="note">✦ product identity preserved</div>
+          </div>
+
+          <!-- B stt -->
+          <div class="card mod t">
+            <div class="mtitle"><span class="ic i16"><svg><use href="#ic-mic"/></svg></span>Speech → Text<span class="mtag">HI·PA·EN</span></div>
+            <div class="mflow">
+              <div class="node"><span class="wave"><i style="height:.5cqw"></i><i style="height:1cqw"></i><i style="height:.7cqw"></i><i style="height:1.3cqw"></i><i style="height:.6cqw"></i></span>Voice</div>
+              <span class="ar">›</span>
+              <div class="node" style="background:var(--teal-s);border-color:#CFE9E7"><span class="ic i22"><svg><use href="#ic-ai"/></svg></span>STT</div>
+              <span class="ar">›</span>
+              <div class="node hi" style="background:linear-gradient(135deg,#17A05B,#0E9C9C)"><span class="ic i16" style="filter:brightness(0) invert(1)"><svg><use href="#ic-check"/></svg></span>Review·Confirm</div>
+            </div>
+            <div class="note" style="color:var(--cyan)">artisan speaks — no typing</div>
+          </div>
+
+          <!-- C description -->
+          <div class="card mod a">
+            <div class="mtitle"><span class="ic i16"><svg><use href="#ic-doc"/></svg></span>Description &amp; Story<span class="mtag">C</span></div>
+            <div class="mflow">
+              <div class="node">Confirmed<br><small>text + category</small></div>
+              <span class="ar">›</span>
+              <div class="node" style="background:#FBF1DF;border-color:#F0DBB4"><span class="ic i22"><svg><use href="#ic-ai"/></svg></span>AI</div>
+              <span class="ar">›</span>
+              <div class="node"><span class="ic i16"><svg><use href="#ic-story"/></svg></span>Title·Desc·Story</div>
+            </div>
+            <div class="outs" style="margin-top:.1cqw">
+              <span style="background:#FBF1DF;color:#8A5A10">Title</span>
+              <span style="background:#FBF1DF;color:#8A5A10">Short + Detailed</span>
+              <span style="background:#FBF1DF;color:#8A5A10">Artisan Story</span>
+              <span style="background:#FBF1DF;color:#8A5A10">Key details</span>
+            </div>
+          </div>
+
+          <!-- D price -->
+          <div class="card mod g">
+            <div class="mtitle"><span class="ic i16"><svg><use href="#ic-rupee"/></svg></span>AI Price<span class="mtag">D</span></div>
+            <div class="mflow" style="align-items:center">
+              <div class="node"><span class="ic i16"><svg><use href="#ic-chart"/></svg></span>Cost + info</div>
+              <span class="ar">›</span>
+              <div class="node" style="background:#E7F4EC;border-color:#C7E7D3"><span class="ic i22"><svg><use href="#ic-ai"/></svg></span>Model</div>
+              <span class="ar">›</span>
+              <div class="node" style="border:none;background:#EAF9F0">
+                <span class="price">₹1,271</span>
+                <span class="prange">₹1,120–₹1,420</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="engine-foot"><span class="ic i16"><svg><use href="#ic-plug"/></svg></span> Backend API · AI Orchestrator · Async Jobs · Database <span>· FastAPI</span></div>
+      </div>
+
+      <div class="flow"><span class="ic" style="color:#C9C6BE"><svg style="width:2.1cqw;height:2.1cqw"><use href="#ic-arrowR"/></svg></span></div>
+
+      <!-- ZONE 3 -->
+      <div class="zone z3">
+        <span class="znum" style="background:var(--teal)">3</span>
+        <p class="zhead" style="color:var(--teal)">Canonical Product Engine</p>
+        <div class="stack">
+          <!-- converging arrows -->
+          <svg class="converge" viewBox="0 0 40 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M2 20 C 24 20, 20 100, 38 100" fill="none" stroke="#0F766E" stroke-width="1.6" opacity=".6"/>
+            <path d="M2 75 C 24 75, 22 100, 38 100" fill="none" stroke="#0F766E" stroke-width="1.6" opacity=".6"/>
+            <path d="M2 128 C 24 128, 22 100, 38 100" fill="none" stroke="#0F766E" stroke-width="1.6" opacity=".6"/>
+            <path d="M2 182 C 24 182, 20 100, 38 100" fill="none" stroke="#0F766E" stroke-width="1.6" opacity=".6"/>
+            <circle cx="38" cy="100" r="4" fill="#0F766E"/>
+          </svg>
+
+          <div class="pcard">
+            <div class="img"><span class="badge">CANONICAL</span><span class="ic bagimg"><svg><use href="#ic-bagbig"/></svg></span></div>
+            <div class="body">
+              <div class="ptitle">Handcrafted Denim Sling Bag</div>
+              <div class="prow"><span class="pprice">₹1,271</span><span class="pmeta">AI-generated listing</span></div>
+            </div>
+          </div>
+
+          <div class="attrs">
+            <div class="a"><span class="ic i16"><svg><use href="#ic-img"/></svg></span>Images</div>
+            <div class="a"><span class="ic i16"><svg><use href="#ic-doc"/></svg></span>Title&amp;Desc</div>
+            <div class="a"><span class="ic i16"><svg><use href="#ic-story"/></svg></span>Story</div>
+            <div class="a"><span class="ic i16"><svg><use href="#ic-tag"/></svg></span>Category</div>
+            <div class="a"><span class="ic i16"><svg><use href="#ic-rupee"/></svg></span>Price</div>
+            <div class="a"><span class="ic i16"><svg><use href="#ic-product"/></svg></span>Metadata</div>
+          </div>
+
+          <div class="adapter">
+            <span class="ic i22" style="filter:brightness(0) invert(1)"><svg><use href="#ic-plug"/></svg></span>
+            <div class="t">Marketplace Adapter Layer<small>ONE product → MANY channels</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow"><span class="ic" style="color:#E0B58E"><svg style="width:2.1cqw;height:2.1cqw"><use href="#ic-arrowR"/></svg></span></div>
+
+      <!-- ZONE 4 -->
+      <div class="zone z4">
+        <span class="znum" style="background:var(--terra)">4</span>
+        <p class="zhead" style="color:var(--terra)">Automated Publishing</p>
+        <div class="stack">
+          <div class="card chan">
+            <div class="logo" style="background:var(--terra-s)"><span class="ic i22"><svg><use href="#ic-bag"/></svg></span></div>
+            <div class="meta"><div class="nm">Amazon</div><div class="api">SP-API · listing · price · images · status</div></div>
+            <div class="live"><span class="dot"></span>LIVE</div>
+          </div>
+          <div class="card chan">
+            <div class="logo" style="background:var(--teal-s)"><span class="ic i22"><svg><use href="#ic-net"/></svg></span></div>
+            <div class="meta"><div class="nm">ONDC</div><div class="api">SNP API · catalog · price · status · Ed25519</div></div>
+            <div class="live"><span class="dot"></span>LIVE</div>
+          </div>
+          <div class="chip" style="justify-content:center;background:#EAF7EF;border-color:#C7E7D3;color:#0B5E30;font-size:.66cqw;gap:.4cqw">
+            <span class="ic i16"><svg><use href="#ic-check"/></svg></span>Published · Independent · Trackable · Auto-updated
+          </div>
+
+          <div class="demo">
+            <div class="dh"><span class="ic i16"><svg><use href="#ic-check"/></svg></span> Demo / Sandbox Mode</div>
+            <div class="browser">
+              <div class="bar"><i></i><i></i><i></i><span class="url">demo/amazon/product/ART-1271 · demo/ondc/…</span></div>
+              <div class="pg"><div class="im"></div><div class="tx"><b>Handcrafted Denim Sling Bag</b><span class="tiny">₹1,271 · Meera, Jaipur</span><u>Amazon &amp; ONDC demo listing ›</u></div></div>
+            </div>
+            <span class="tagp">JUDGE-READY PROTOTYPE</span>
+            <div class="cap">Simulates marketplace publishing before production API credentials — clearly labelled, not real live listings. Flip <b>DEMO_MODE=false</b> → real adapters, same workflow.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ZONE 5 FUTURE -->
+    <footer>
+      <span class="znum fnum" style="background:var(--muted)">5</span>
+      <div class="fbadge">Future</div>
+      <div class="flabel">
+        <div class="ttl">Social Commerce</div>
+        <div class="ds">Same canonical product, auto-distributed to social — no separate content work.</div>
+      </div>
+      <div class="fmid">
+        <div class="socialhub"><span class="ic i16"><svg><use href="#ic-product"/></svg></span>Canonical</div>
+        <span class="ar">›</span>
+        <div class="socialhub"><span class="ic i16" style="color:var(--muted)"><svg><use href="#ic-plug"/></svg></span>Social Automation</div>
+        <span class="ar">›</span>
+      </div>
+      <div class="fsoc">
+        <div class="soc ig">
+          <div class="logo"><span class="ic i22"><svg><use href="#ic-ig"/></svg></span></div>
+          <div><div class="nm">Instagram</div><div class="it">Auto post · product image · story · buy link</div></div>
+        </div>
+        <div class="soc wa">
+          <div class="logo"><span class="ic i22"><svg><use href="#ic-wa"/></svg></span></div>
+          <div><div class="nm">WhatsApp</div><div class="it">New-product · order &amp; shipping updates · buy link</div></div>
+        </div>
+      </div>
+      <span class="fscope">Future Scope</span>
+    </footer>
+
+  </div>
+</div>

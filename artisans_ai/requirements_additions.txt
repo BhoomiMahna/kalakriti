@@ -1,0 +1,10 @@
+# ── Instagram Content Pipeline ────────────────────────────────────────────
+opencv-python-headless>=4.9.0  # Image quality analysis (blur, resolution)
+Pillow>=10.2.0                 # Image resizing/cropping, optional brand overlay
+pydantic>=2.0                  # Data models (instagram_schema.py)
+requests>=2.31.0               # Instagram Graph API calls
+numpy>=1.26.0                  # image array ops (pulled in by opencv, listed explicitly)
+google-genai>=1.0.0           # Gemini API client
+
+# dev/test only
+pytest>=7.4.0

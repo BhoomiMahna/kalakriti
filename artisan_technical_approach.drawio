@@ -1,0 +1,259 @@
+<mxfile host="app.diagrams.net" modified="2026-09-07T00:00:00.000Z" agent="artisan-ai" version="24.7.0">
+  <diagram id="artisan-tech-approach" name="Technical Approach">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="920" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITLE + BANNER -->
+        <mxCell id="title" value="TECHNICAL APPROACH&#10;&lt;font style=&quot;font-size:12px;font-weight:normal&quot;&gt;AI-Powered Artisan Digitization &amp;amp; Automated Multi-Channel Selling Platform&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F2540;strokeColor=none;fontColor=#FFFFFF;fontSize=22;fontStyle=1;verticalAlign=middle;align=center;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="16" width="1540" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="banner" value="ONE ARTISAN INPUT  →  ONE CANONICAL PRODUCT  →  AUTOMATIC MULTI-CHANNEL DISTRIBUTION" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF6EC;strokeColor=#C8631F;fontColor=#8A3B12;fontSize=13;fontStyle=1;align=center;arcSize=40;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="1540" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ================= SECTION 1 : ARTISAN INPUT ================= -->
+        <mxCell id="s1c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2FB;strokeColor=#2E6FB0;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="30" y="124" width="250" height="516" as="geometry" />
+        </mxCell>
+        <mxCell id="s1h" value="ARTISAN ONBOARDING &amp; INPUT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E6FB0;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;fontSize=12;align=left;verticalAlign=middle;spacingLeft=46;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="124" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s1n" value="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontColor=#2E6FB0;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="40" y="127" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="a_artisan" value="👤 Artisan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="178" width="170" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="a_app" value="🌐 Mobile-First Web App&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#5f6368&quot;&gt;React · Vite · Tailwind (PWA)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D7E8F8;strokeColor=#2E6FB0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="240" width="210" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" value="🌐  Language: English · Hindi · Punjabi" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="306" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="📱  Mobile / OTP Login" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="352" width="210" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="🎨  Artisan Profile" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="392" width="210" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="📷  Product Photo — Camera / Upload" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="432" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="🎙  Voice Input — Local language" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E6FB0;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="478" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s1cap" value="ARTISAN PROVIDES SIMPLE INPUT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontColor=#2E6FB0;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="560" width="210" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ================= SECTION 2 : AI ENGINE ================= -->
+        <mxCell id="s2c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1ECFA;strokeColor=#6A3FB5;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="310" y="124" width="560" height="516" as="geometry" />
+        </mxCell>
+        <mxCell id="s2h" value="AI PRODUCT DIGITIZATION ENGINE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A3FB5;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;fontSize=12;align=left;verticalAlign=middle;spacingLeft=46;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="310" y="124" width="560" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s2n" value="2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6A3FB5;fontColor=#6A3FB5;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="320" y="127" width="34" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- Module A : Photoshoot -->
+        <mxCell id="mA" value="A · AI Product Photoshoot&#10;&lt;span style=&quot;font-weight:normal;font-size:9px&quot;&gt;product identity preserved&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE7F6;strokeColor=#6A3FB5;fontColor=#4B2E86;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="322" y="176" width="536" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aA1" value="🖼 Basic&lt;br&gt;Product Image" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6A3FB5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="466" y="208" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="aA2" value="AI Image Model&lt;br&gt;&lt;span style=&quot;font-size:9px&quot;&gt;Gemini / FLUX / demo&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9CCF2;strokeColor=#6A3FB5;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="592" y="208" width="122" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="aA3" value="📸 Professional Photos&lt;br&gt;Hero · Lifestyle · Detail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6A3FB5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="730" y="202" width="120" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- Module B : STT + review -->
+        <mxCell id="mB" value="B · Speech-to-Text&#10;&lt;span style=&quot;font-weight:normal;font-size:9px&quot;&gt;HI / PA / EN&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F4F4;strokeColor=#0E8F8F;fontColor=#0A5E5E;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="322" y="288" width="536" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="bB1" value="🎙 Artisan Voice&lt;br&gt;(local lang)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E8F8F;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="424" y="316" width="96" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="bB2" value="🗣 Sarvam&lt;br&gt;STT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C9EAEA;strokeColor=#0E8F8F;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="316" width="86" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="bB3" value="📝 Transcription" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E8F8F;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="626" y="316" width="90" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="bB4" value="✅ Review / Edit /&lt;br&gt;Re-record&lt;br&gt;→ Confirmed Info" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EAF7EF;strokeColor=#1B8F4D;fontColor=#0B5E30;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="726" y="310" width="124" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- Module C : Description -->
+        <mxCell id="mC" value="C · Description &amp; Story Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBF1DF;strokeColor=#C9821A;fontColor=#8A5A10;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="322" y="400" width="536" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cC1" value="Confirmed Text&lt;br&gt;+ Category" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C9821A;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="466" y="430" width="120" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="cC2" value="✍ Description&lt;br&gt;Model (LLM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F6E2BE;strokeColor=#C9821A;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="602" y="430" width="122" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="cC3" value="Title · Short&lt;br&gt;Detailed · Story" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C9821A;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="424" width="110" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- Module D : Price -->
+        <mxCell id="mD" value="D · AI Price Recommendation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7F4EC;strokeColor=#1B8F4D;fontColor=#0B5E30;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="322" y="512" width="536" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dD1" value="Product + Cost&lt;br&gt;Information" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1B8F4D;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="466" y="542" width="120" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="dD2" value="💰 Price Model&lt;br&gt;&lt;span style=&quot;font-size:9px&quot;&gt;scikit-learn .pkl&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CFE9D8;strokeColor=#1B8F4D;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="602" y="542" width="122" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="dD3" value="₹ Suggested Price&lt;br&gt;+ Price Range" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B8F4D;strokeColor=#0B5E30;fontColor=#FFFFFF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="536" width="110" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s2foot" value="Backend API · AI Orchestrator · Async Background Jobs · Database  (FastAPI · SQLAlchemy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7DEF7;strokeColor=#6A3FB5;fontColor=#4B2E86;fontSize=9;fontStyle=2;arcSize=40;" vertex="1" parent="1">
+          <mxGeometry x="322" y="616" width="536" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- ================= SECTION 3 : CANONICAL ================= -->
+        <mxCell id="combine" value="+" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0F766E;strokeColor=#0B5049;fontColor=#FFFFFF;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="872" y="372" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s3c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6F1EF;strokeColor=#0F766E;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="915" y="124" width="240" height="516" as="geometry" />
+        </mxCell>
+        <mxCell id="s3h" value="CANONICAL PRODUCT ENGINE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F766E;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;fontSize=12;align=left;verticalAlign=middle;spacingLeft=46;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="915" y="124" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3n" value="3" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0F766E;fontColor=#0F766E;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="925" y="127" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="canonical" value="📦 CANONICAL PRODUCT&lt;br&gt;&lt;span style=&quot;font-size:9px;font-weight:normal;color:#0B5049&quot;&gt;single source of truth&lt;/span&gt;&lt;hr size=1&gt;&lt;div style=&quot;text-align:left;font-weight:normal;font-size:10px&quot;&gt;• Product ID&lt;br&gt;• Images (hero/lifestyle/detail)&lt;br&gt;• Title&lt;br&gt;• Description&lt;br&gt;• Artisan Story&lt;br&gt;• Category&lt;br&gt;• Price&lt;br&gt;• Metadata&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0F766E;strokeWidth=2;fontColor=#0B5049;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="925" y="180" width="220" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="confirm" value="👤 Artisan confirms preview &amp; price" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EAF7EF;strokeColor=#1B8F4D;fontColor=#0B5E30;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="925" y="428" width="220" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="adapter" value="🔌 Marketplace Adapter Layer&lt;br&gt;&lt;span style=&quot;font-size:9px;font-weight:normal&quot;&gt;one product → many channels&lt;br&gt;field · category · image · price mapping&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F766E;strokeColor=#0B5049;fontColor=#FFFFFF;fontSize=12;fontStyle=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="925" y="488" width="220" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- ================= SECTION 4 : PUBLISHING ================= -->
+        <mxCell id="s4c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2E6;strokeColor=#C8631F;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="124" width="400" height="516" as="geometry" />
+        </mxCell>
+        <mxCell id="s4h" value="AUTOMATED MULTI-CHANNEL PUBLISHING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8631F;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;fontSize=12;align=left;verticalAlign=middle;spacingLeft=46;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="124" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s4n" value="4" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C8631F;fontColor=#C8631F;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="127" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="amazon" value="🛒 Amazon — SP-API (LWA)&lt;br&gt;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;• Listing • Price • Images&lt;br&gt;• Description • Listing status&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C8631F;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="182" width="180" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="ondc" value="🟢 ONDC / SNP API&lt;br&gt;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;• Catalog publishing&lt;br&gt;• Product status&lt;br&gt;(Ed25519 signed)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C8631F;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="284" width="180" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="future_ch" value="➕ Future Marketplaces" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#C8631F;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="386" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="published" value="✅ Published Listing&lt;br&gt;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;Unified status per channel:&lt;br&gt;Live · Pending · Failed&lt;br&gt;(independent · retryable)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE7CF;strokeColor=#C8631F;fontColor=#8A3B12;fontSize=11;fontStyle=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="240" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="demo" value="⚙ DEMO / SANDBOX MODE&#10;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;Canonical Product → Demo Marketplace Adapters →&lt;br&gt;Demo Amazon Listing · Demo ONDC Listing&lt;/span&gt;&#10;&lt;b&gt;Judge-ready simulation before production API credentials.&lt;/b&gt;&#10;&lt;span style=&quot;font-size:9px;font-weight:normal&quot;&gt;Demo listings are clearly labelled — NOT real live listings.&lt;br&gt;Switch DEMO_MODE=false → real Amazon / ONDC adapters (same workflow).&lt;/span&gt;" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#E0A800;fontColor=#7A5A00;fontSize=11;fontStyle=1;align=center;verticalAlign=top;spacingTop=6;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="450" width="355" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ================= SECTION 5 : FUTURE ================= -->
+        <mxCell id="s5c" value="" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#F5F5F7;strokeColor=#9AA0A6;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="660" width="1540" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="s5h" value="FUTURE SOCIAL COMMERCE — FUTURE SCOPE (not part of current MVP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#9AA0A6;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;fontSize=12;align=left;verticalAlign=middle;spacingLeft=46;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="660" width="1540" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="s5n" value="5" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9AA0A6;fontColor=#5F6368;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="40" y="661" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="s5note" value="From the SAME canonical product, the platform can auto-distribute to social channels — with no separate content creation.&#10;&#10;Official Meta / WhatsApp Business APIs · consent-based (opt-in) · added via the same adapter pattern (no core rewrite)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontColor=#5F6368;fontSize=12;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="60" y="716" width="380" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="fcanon" value="📦 Canonical Product" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9AA0A6;fontColor=#5F6368;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="762" width="150" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="fsocial" value="🔗 Social Automation&lt;br&gt;Engine" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#9AA0A6;fontColor=#455A64;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="764" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="finsta" value="📸 Instagram — Meta Graph API&lt;br&gt;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;Auto post: product image · artisan story · details · buy link&lt;/span&gt;" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#FCE9F3;strokeColor=#C2185B;fontColor=#880E4F;fontSize=11;fontStyle=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="930" y="716" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fwa" value="💬 WhatsApp Business API&lt;br&gt;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;New-product · order · shipping updates · buy link · opt-in chat&lt;/span&gt;" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#E7F6EC;strokeColor=#1EA362;fontColor=#0B5E30;fontSize=11;fontStyle=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="930" y="804" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fcap" value="FUTURE SCOPE&#10;&lt;span style=&quot;font-size:10px;font-weight:normal&quot;&gt;Same “one product → many channels” engine, extended to social commerce.&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9AA0A6;fontColor=#5F6368;fontSize=13;fontStyle=1;dashed=1;align=center;verticalAlign=middle;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="748" width="260" height="84" as="geometry" />
+        </mxCell>
+
+        <!-- ================= EDGES ================= -->
+        <!-- Section 1 internal -->
+        <mxCell id="e_art_app" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="a_artisan" target="a_app"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_app_p1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="a_app" target="p1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Section1 -> AI engine inputs -->
+        <mxCell id="e_p4_A" value="photo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2E6FB0;strokeWidth=1.5;endArrow=block;endFill=1;fontSize=9;fontColor=#2E6FB0;" edge="1" parent="1" source="p4" target="mA"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_p5_B" value="voice" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2E6FB0;strokeWidth=1.5;endArrow=block;endFill=1;fontSize=9;fontColor=#2E6FB0;" edge="1" parent="1" source="p5" target="mB"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Module A flow -->
+        <mxCell id="eA12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6A3FB5;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="aA1" target="aA2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eA23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6A3FB5;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="aA2" target="aA3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- Module B flow -->
+        <mxCell id="eB12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0E8F8F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="bB1" target="bB2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eB23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0E8F8F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="bB2" target="bB3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eB34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0E8F8F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="bB3" target="bB4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- Module C flow -->
+        <mxCell id="eC12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C9821A;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="cC1" target="cC2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eC23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C9821A;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="cC2" target="cC3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- Module D flow -->
+        <mxCell id="eD12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1B8F4D;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="dD1" target="dD2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eD23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1B8F4D;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="dD2" target="dD3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- confirmed text feeds description -->
+        <mxCell id="eB_C" value="confirmed text" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#0E8F8F;strokeWidth=1.2;endArrow=block;endFill=1;fontSize=8;fontColor=#0A5E5E;" edge="1" parent="1" source="bB4" target="cC1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- converge into combine -->
+        <mxCell id="eA_cmb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="aA3" target="combine"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eB_cmb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="bB4" target="combine"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eC_cmb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="cC3" target="combine"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eD_cmb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="dD3" target="combine"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_cmb_can" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="combine" target="canonical"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- canonical -> confirm -> adapter -->
+        <mxCell id="e_can_conf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="canonical" target="confirm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_conf_ad" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0F766E;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="confirm" target="adapter"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- adapter -> channels -->
+        <mxCell id="e_ad_amz" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C8631F;strokeWidth=1.8;endArrow=block;endFill=1;" edge="1" parent="1" source="adapter" target="amazon"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_ad_ondc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C8631F;strokeWidth=1.8;endArrow=block;endFill=1;" edge="1" parent="1" source="adapter" target="ondc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_ad_fut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#C8631F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="adapter" target="future_ch"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- channels -> published -->
+        <mxCell id="e_amz_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C8631F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="amazon" target="published"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_ondc_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#C8631F;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="ondc" target="published"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_fut_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#C8631F;strokeWidth=1.2;endArrow=block;endFill=1;" edge="1" parent="1" source="future_ch" target="published"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- adapter -> demo -->
+        <mxCell id="e_ad_demo" value="demo mode" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#E0A800;strokeWidth=1.5;endArrow=block;endFill=1;fontSize=9;fontColor=#7A5A00;" edge="1" parent="1" source="adapter" target="demo"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- future links -->
+        <mxCell id="e_can_fcanon" value="future" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9AA0A6;strokeWidth=1.5;endArrow=block;endFill=1;fontSize=9;fontColor=#5F6368;" edge="1" parent="1" source="canonical" target="fcanon"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_fc_fs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9AA0A6;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="fcanon" target="fsocial"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_fs_ig" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#C2185B;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="fsocial" target="finsta"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_fs_wa" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#1EA362;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="fsocial" target="fwa"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

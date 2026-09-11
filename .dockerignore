@@ -1,0 +1,20 @@
+# Keep the backend image small & self-contained.
+**/node_modules
+**/__pycache__
+**/*.pyc
+.git
+.venv
+*.zip
+SIH_2026
+SIH_2026.zip
+IndicTrans2
+app/frontend
+app/backend/storage
+app/backend/*.db
+app/backend/.env
+app/backend/instagram_feedback.jsonl
+app/backend/instagram_processed
+artisan_technical_approach.*
+reference_embeddings.npy
+reference_listings.csv
+*.ipynb
