@@ -28,7 +28,7 @@ venv/
 
 # Logs
 *.log
-
+*.zip
 # OS files
 .DS_Store
 Thumbs.db
