@@ -39,6 +39,9 @@ from services.pricing_service import get_pricing_service
 logger = logging.getLogger(__name__)
 
 _executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="job")
+# Isolated pool for the (potentially slow) photoshoot so a bounded wait never
+# starves the main job workers.
+_photo_executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="photo")
 _lock = threading.Lock()
 
 
@@ -130,17 +133,35 @@ def run_photoshoot(product: Product, description: str = "") -> None:
         return
     try:
         import uuid
+        from concurrent.futures import TimeoutError as FuturesTimeout
         src_name = Path(originals[0]).name
         src_path = Path(settings.storage_dir) / src_name
         # Unique base per (re)generation so new outputs bust any browser cache.
         base = f"{src_name.rsplit('.', 1)[0]}_{uuid.uuid4().hex[:6]}"
-        shots = photoshoot.generate(
+        # Run under a hard deadline: a known demo image resolves in well under a
+        # second, but an unknown image on a slow/low-memory host could otherwise
+        # block the whole listing pipeline forever. On timeout we mark the shots
+        # failed (the UI shows a retry) instead of hanging.
+        future = _photo_executor.submit(
+            photoshoot.generate,
             str(src_path), settings.storage_dir,
             base_name=base,
             category=product.category or "",
             material=product.material or "",
             description=description or (product.short_description or ""),
         )
+        try:
+            shots = future.result(timeout=settings.photoshoot_timeout_seconds)
+        except FuturesTimeout:
+            logger.warning("[IMAGE] Photoshoot exceeded %ss deadline — marking failed "
+                           "so the listing can complete (product %s)",
+                           settings.photoshoot_timeout_seconds, product.id)
+            product.generated_images = {
+                "mode": "failed", "statuses": {}, "original": originals[0],
+                "error": "timeout",
+            }
+            product.enhanced_images = None
+            return
         gen = {"mode": shots.get("mode"), "statuses": shots.get("statuses", {}),
                "original": originals[0]}
         for role in ("hero", "lifestyle", "detail"):

@@ -90,6 +90,14 @@ class Settings(BaseSettings):
     # used for every other (non-matching) image. On for hackathon reliability.
     image_demo_mode: bool = True
     demo_products_dir: str = str(REPO_ROOT / "before_after_products")
+    # Max perceptual-hash (average_hash, 16px) Hamming distance for a phone
+    # re-encoded/resized copy of a known BEFORE to still match its demo AFTER.
+    # Higher = more tolerant. 12 comfortably absorbs JPEG recompression + resize
+    # while staying well clear of unrelated product photos.
+    demo_match_phash_distance: int = 12
+    # Hard ceiling (seconds) on the photoshoot step so the "photos" job can never
+    # hang the whole pipeline on a slow/low-memory host (e.g. Railway free tier).
+    photoshoot_timeout_seconds: int = 45
 
     # ── Demo mode ────────────────────────────────────────────────────────────
     # Master switch for the judge-demo experience: simulated marketplace

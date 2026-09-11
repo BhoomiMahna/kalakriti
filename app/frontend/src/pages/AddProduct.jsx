@@ -351,14 +351,24 @@ function StepSpeak({ t, lang, transcript, setTranscript, onConfirm }) {
 // ─── Step 2: processing ──────────────────────────────────────────────────────
 const STEP_KEYS = ["understand", "photos", "transcribe", "describe", "story", "price", "assemble"];
 
+// Hard client-side ceiling so the screen can never spin forever, even if the
+// backend job stalls on a slow host. The backend caps the photoshoot step, so a
+// healthy run finishes well within this; if we hit it, the product still exists
+// and the user is offered a way forward (review it, or retry) instead of a freeze.
+const MAX_WAIT_MS = 75000;
+
 function StepProcessing({ t, payload, onDone }) {
   const [steps, setSteps] = useState([]);
   const [error, setError] = useState("");
+  const [slow, setSlow] = useState(false);
   const started = useRef(false);
+  const productId = useRef(null);
+  const pollRef = useRef(null);
 
   useEffect(() => {
     if (started.current) return;
     started.current = true;
+    const startedAt = Date.now();
     (async () => {
       try {
         const fd = new FormData();
@@ -366,25 +376,34 @@ function StepProcessing({ t, payload, onDone }) {
         fd.append("text_hint", payload.transcript || "");
         fd.append("language", payload.lang || "en");
         const product = await api.createProduct(fd);
-        const poll = setInterval(async () => {
+        productId.current = product.id;
+        pollRef.current = setInterval(async () => {
           try {
             const job = await api.latestJob(product.id);
             if (job?.steps) setSteps(job.steps);
             if (job?.status === "SUCCEEDED") {
-              clearInterval(poll);
+              clearInterval(pollRef.current);
               setTimeout(() => onDone(product.id), 500);
+              return;
             } else if (job?.status === "FAILED") {
-              clearInterval(poll);
-              setError(job.error || "Something went wrong. Your product was saved.");
+              clearInterval(pollRef.current);
+              setError(job.error || t("add.processingError"));
+              return;
             }
           } catch {
-            /* keep polling */
+            /* transient — keep polling */
+          }
+          // Never spin forever: after the deadline, stop and offer a way forward.
+          if (Date.now() - startedAt > MAX_WAIT_MS) {
+            clearInterval(pollRef.current);
+            setSlow(true);
           }
         }, 800);
       } catch (e) {
         setError(e.message);
       }
     })();
+    return () => clearInterval(pollRef.current);
   }, []);
 
   const view = steps.length ? steps : STEP_KEYS.map((k) => ({ key: k, status: "pending" }));
@@ -426,8 +445,29 @@ function StepProcessing({ t, payload, onDone }) {
           </div>
         ))}
       </div>
+      {slow && !error && (
+        <div className="mt-6 rounded-xl bg-amber-50 p-4 text-center">
+          <p className="text-sm text-amber-800">{t("add.processingSlow")}</p>
+          <button
+            onClick={() => productId.current && onDone(productId.current)}
+            className="mt-3 rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white"
+          >
+            {t("add.viewProduct")}
+          </button>
+        </div>
+      )}
       {error && (
-        <div className="mt-6 rounded-xl bg-rose-50 p-4 text-center text-sm text-rose-700">{error}</div>
+        <div className="mt-6 rounded-xl bg-rose-50 p-4 text-center">
+          <p className="text-sm text-rose-700">{error}</p>
+          {productId.current && (
+            <button
+              onClick={() => onDone(productId.current)}
+              className="mt-3 rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white"
+            >
+              {t("add.viewProduct")}
+            </button>
+          )}
+        </div>
       )}
     </div>
   );

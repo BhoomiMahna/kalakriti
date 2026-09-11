@@ -91,7 +91,10 @@
     "noSound": "We didn't hear any sound. Please check your microphone is on and unmuted, speak close to it, and record again — or type below.",
     "createListing": "Create my listing",
     "processingTitle": "Creating your product",
-    "processingSub": "This takes a few moments…"
+    "processingSub": "This takes a few moments…",
+    "processingSlow": "This is taking longer than usual. Your product has been saved — you can open it to review what's ready.",
+    "processingError": "Something went wrong, but your product was saved. You can open it and try again.",
+    "viewProduct": "View my product"
   },
   "steps": {
     "understand": "Understanding your product",
