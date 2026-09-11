@@ -102,13 +102,23 @@ class SarvamService:
                     data={"model": "saarika:v2.5", "language_code": lang},
                     timeout=90.0,
                 )
+            logger.info("[STT] Sarvam /speech-to-text status=%s (lang_code=%s)",
+                        resp.status_code, lang)
             resp.raise_for_status()
+        except httpx.HTTPStatusError as exc:
+            logger.error("[STT] Sarvam HTTP %s: %s", exc.response.status_code,
+                         exc.response.text[:300])
+            return None
         except Exception:  # noqa: BLE001
-            logger.exception("Sarvam transcribe failed")
+            logger.exception("[STT] Sarvam transcribe request failed")
             return None
         data = resp.json()
+        logger.info("[STT] Sarvam response keys=%s detected_lang=%s",
+                    list(data.keys()), data.get("language_code"))
         text = (data.get("transcript") or "").strip()
         if not text:
+            logger.warning("[STT] Sarvam returned an EMPTY transcript (audio may be silent, "
+                           "too short, or not speech).")
             return None
         bcp = data.get("language_code") or lang
         iso = bcp.split("-")[0] if bcp and bcp != "unknown" else (language or "en")
@@ -154,11 +164,17 @@ class SarvamService:
                 },
                 timeout=45.0,
             )
+            logger.info("[TTS] Sarvam /text-to-speech status=%s (lang=%s)",
+                        resp.status_code, _BCP47.get(language, "en-IN"))
             resp.raise_for_status()
             audios = resp.json().get("audios") or []
             return audios[0] if audios else None
+        except httpx.HTTPStatusError as exc:
+            logger.error("[TTS] Sarvam HTTP %s: %s", exc.response.status_code,
+                         exc.response.text[:300])
+            return None
         except Exception:  # noqa: BLE001
-            logger.exception("Sarvam TTS failed")
+            logger.exception("[TTS] Sarvam TTS request failed")
             return None
 
 

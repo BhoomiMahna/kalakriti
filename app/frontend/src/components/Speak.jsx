@@ -3,13 +3,56 @@ import { useState } from "react";
 // Speaker button: reads `text` aloud. The voice is chosen from the SCRIPT of the
 // text itself (Gurmukhi→Punjabi, Devanagari→Hindi, Latin→English) so English
 // marketplace content is never spoken with a Punjabi/Hindi voice, and vice-versa.
-// Prefers Sarvam TTS (/api/tts); falls back to the browser speech synthesizer.
+// Prefers Sarvam TTS (/api/tts, high quality); if that's unavailable it falls
+// back to the browser speech synthesizer for EVERY language — an imperfect
+// voice is better than silence, and Sarvam is used whenever it's configured.
 const BCP = { hi: "hi-IN", pa: "pa-IN", en: "en-IN" };
 
 function detectLang(text) {
   if (/[਀-੿]/.test(text)) return "pa"; // Gurmukhi
   if (/[ऀ-ॿ]/.test(text)) return "hi"; // Devanagari
   return "en";
+}
+
+// Browser voices can load asynchronously — resolve once they're available.
+function loadVoices() {
+  return new Promise((resolve) => {
+    const synth = window.speechSynthesis;
+    if (!synth) return resolve([]);
+    const now = synth.getVoices();
+    if (now && now.length) return resolve(now);
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      resolve(synth.getVoices() || []);
+    };
+    synth.onvoiceschanged = finish;
+    setTimeout(finish, 800); // some browsers never fire the event
+  });
+}
+
+async function browserSpeak(text, lang, onEnd) {
+  const synth = window.speechSynthesis;
+  if (!synth) return onEnd();
+  try {
+    const voices = await loadVoices();
+    synth.cancel(); // clear anything queued/stuck
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = BCP[lang] || "en-IN";
+    // Exact language match, else a Hindi voice for Punjabi (nearest), else default.
+    const pick =
+      voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(lang)) ||
+      (lang === "pa" && voices.find((v) => v.lang && v.lang.toLowerCase().startsWith("hi"))) ||
+      null;
+    if (pick) u.voice = pick;
+    u.onend = onEnd;
+    u.onerror = onEnd;
+    synth.resume(); // some engines start paused
+    synth.speak(u);
+  } catch {
+    onEnd();
+  }
 }
 
 export default function Speak({ text, className = "" }) {
@@ -19,6 +62,7 @@ export default function Speak({ text, className = "" }) {
     if (!text || busy) return;
     const lang = detectLang(text);
     setBusy(true);
+    const done = () => setBusy(false);
     try {
       const res = await fetch("/api/tts", {
         method: "POST",
@@ -28,37 +72,19 @@ export default function Speak({ text, className = "" }) {
       if (res.ok) {
         const { audio } = await res.json();
         const el = new Audio(`data:audio/wav;base64,${audio}`);
-        el.onended = () => setBusy(false);
-        el.onerror = () => fallback(lang);
-        await el.play();
-        return;
+        el.onended = done;
+        el.onerror = () => browserSpeak(text, lang, done);
+        try {
+          await el.play();
+          return;
+        } catch {
+          browserSpeak(text, lang, done); // autoplay blocked → browser TTS
+          return;
+        }
       }
-      fallback(lang);
+      browserSpeak(text, lang, done); // e.g. 503 when Sarvam key isn't configured
     } catch {
-      fallback(lang);
-    }
-  }
-
-  function fallback(lang) {
-    // The browser's Hindi/Punjabi voices are poor or absent, so for Indic
-    // languages we rely on Sarvam only — a bad robotic voice is worse than none.
-    if (lang === "pa" || lang === "hi") {
-      setBusy(false);
-      return;
-    }
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = BCP[lang] || "en-IN";
-      // Prefer a voice that matches the language if the browser has one.
-      const voices = window.speechSynthesis.getVoices() || [];
-      const match = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(lang));
-      if (match) u.voice = match;
-      u.onend = () => setBusy(false);
-      u.onerror = () => setBusy(false);
-      window.speechSynthesis.speak(u);
-    } catch {
-      setBusy(false);
+      browserSpeak(text, lang, done);
     }
   }
 

@@ -87,6 +87,7 @@
     "micNoDevice": "No microphone found on this device. Please type below instead.",
     "micInsecure": "Voice needs a secure (https) page. Please type below, or reopen the app over https.",
     "couldNotUnderstand": "We couldn't understand that clearly. You can play your recording, type it below, or record again.",
+    "sttUnavailable": "Voice-to-text isn't available right now. Please type your product details below.",
     "noSound": "We didn't hear any sound. Please check your microphone is on and unmuted, speak close to it, and record again — or type below.",
     "createListing": "Create my listing",
     "processingTitle": "Creating your product",

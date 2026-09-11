@@ -186,8 +186,14 @@ function StepSpeak({ t, lang, transcript, setTranscript, onConfirm }) {
         setTranscript(res.transcript || "");
         setEditing(!res.transcript);
         if (!res.transcript) {
-          setError(t("add.couldNotUnderstand"));
-          dbg("server ok, empty transcript");
+          // Distinguish "server has no STT configured" from "couldn't understand".
+          if (res.stt_available === false) {
+            setError(t("add.sttUnavailable"));
+            dbg("stt not configured on server");
+          } else {
+            setError(t("add.couldNotUnderstand"));
+            dbg("server ok, empty transcript");
+          }
         } else {
           dbg("ok");
         }
