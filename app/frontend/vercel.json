@@ -4,8 +4,8 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://REPLACE-WITH-YOUR-BACKEND-URL/api/:path*" },
-    { "source": "/media/:path*", "destination": "https://REPLACE-WITH-YOUR-BACKEND-URL/media/:path*" }
+    { "source": "/api/:path*", "destination": "https://kalakriti-backend-production.up.railway.app/api/:path*" },
+    { "source": "/media/:path*", "destination": "https://kalakriti-backend-production.up.railway.app/media/:path*" }
   ],
   "headers": [
     {

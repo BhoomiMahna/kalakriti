@@ -85,7 +85,7 @@
     "micUnavailable": "Couldn't start the microphone. Please type below instead.",
     "micDenied": "Please allow microphone access in your browser, then tap the mic again. You can also type below.",
     "micNoDevice": "No microphone found on this device. Please type below instead.",
-    "micInsecure": "Voice needs a secure page — open the app at http://localhost:5173 (or over https). For now, please type below.",
+    "micInsecure": "Voice needs a secure (https) page. Please type below, or reopen the app over https.",
     "couldNotUnderstand": "We couldn't understand that clearly. You can play your recording, type it below, or record again.",
     "noSound": "We didn't hear any sound. Please check your microphone is on and unmuted, speak close to it, and record again — or type below.",
     "createListing": "Create my listing",
