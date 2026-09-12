@@ -76,7 +76,7 @@ class Settings(BaseSettings):
     image_provider: str = ""
     image_enhancer_url: str = ""            # FLUX service endpoint (provider=flux_url)
     openai_api_key: str = ""
-    gemini_image_model: str = "gemini-2.5-flash-image-preview"
+    gemini_image_model: str = "gemini-2.5-flash-image"
     # Background-removal model for the local isolation pipeline (rembg).
     #   u2netp = fast/light (~4MB), u2net = higher quality (~170MB).
     image_rembg_model: str = "u2netp"

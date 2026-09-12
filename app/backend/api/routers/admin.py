@@ -104,6 +104,26 @@ def image_selftest() -> dict:
         logger.exception("[IMAGE] selftest generation failed")
         out["ok"] = False
         out["error"] = str(exc)[:600]
+        # On failure, list the account's image-capable models so the correct
+        # model name is knowable (the key is used only in a header, never returned).
+        if svc.provider == "gemini":
+            try:
+                import httpx
+                key = settings.gemini_api_key or settings.google_api_key
+                r = httpx.get("https://generativelanguage.googleapis.com/v1beta/models",
+                              headers={"x-goog-api-key": key}, timeout=30.0)
+                models = r.json().get("models", [])
+                out["available_image_models"] = [
+                    m.get("name") for m in models
+                    if "generateContent" in (m.get("supportedGenerationMethods") or [])
+                    and "image" in (m.get("name") or "").lower()
+                ]
+                out["all_generatecontent_models"] = [
+                    m.get("name") for m in models
+                    if "generateContent" in (m.get("supportedGenerationMethods") or [])
+                ][:40]
+            except Exception as e2:  # noqa: BLE001
+                out["models_error"] = str(e2)[:300]
     return out
 
 
