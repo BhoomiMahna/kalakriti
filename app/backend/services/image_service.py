@@ -178,6 +178,7 @@ class PhotoshootService:
             logger.warning("[IMAGE] rembg not available — isolation pipeline disabled")
 
         result: dict[str, Any] = {"mode": self.mode, "statuses": {}}
+        modes_used: set[str] = set()
         for shot in SHOTS:
             dest = out / f"{base_name}_{shot}.jpg"
             produced_mode = self._produce_shot(
@@ -187,12 +188,18 @@ class PhotoshootService:
             if produced_mode and self._materially_different(original, str(dest)):
                 result[shot] = dest.name
                 result["statuses"][shot] = "ready"
+                modes_used.add(produced_mode)
                 logger.info("[IMAGE] %s ready (%s)", shot.capitalize(), produced_mode)
             else:
                 result[shot] = None
                 result["statuses"][shot] = "failed"
                 logger.warning("[IMAGE] %s FAILED — not materially different / no output", shot)
 
+        # Report the mode HONESTLY: only "gemini" if every ready shot was truly
+        # generated; if any shot came from the background-removal fallback, label
+        # the whole set "isolate" (a studio preview, not "AI generated").
+        if modes_used:
+            result["mode"] = self.provider if modes_used == {self.provider} else "isolate"
         return result
 
     def _demo_result(self, entry: dict, out: Path, base_name: str) -> dict[str, Any]:
@@ -246,12 +253,15 @@ class PhotoshootService:
         return result
 
     def _produce_shot(self, shot, original, cutout, dest, *, category, material, description) -> str | None:
-        """Return the mode string that produced the shot, or None on failure.
+        """Return the mode string that produced the shot ("gemini"/"isolate"), or
+        None on failure.
 
-        When a generative provider is configured, generation is the ONLY path —
-        a failure returns None (shot marked failed, UI shows Retry). We never
-        silently fall back to the background-removal composite and call it a
-        generation.
+        A configured generative provider is TRIED FIRST. If it fails (e.g. quota
+        / network / validation), we fall back to the real background-removal
+        staging so the artisan still gets a usable studio composite — this is
+        honestly returned as mode "isolate" (the UI labels it a "studio preview",
+        NEVER "AI generated"), and the original photo is never passed off as a
+        generated shot.
         """
         if self.generative:
             prompt = build_prompt(shot, category, material, description)
@@ -267,10 +277,11 @@ class PhotoshootService:
                     prompt += " Ensure the product is clearly visible, undistorted and grounded."
                 except Exception:  # noqa: BLE001
                     logger.exception("[IMAGE] Generative provider FAILED for %s", shot)
-            logger.warning("[IMAGE] Generation FAILED for %s (no fallback — marked failed)", shot)
-            return None
-        # No generative provider: honest background-removal preview (NOT labelled
-        # as a generated photoshoot in the UI — see mode == 'isolate').
+            logger.warning("[IMAGE] Generation unavailable for %s — falling back to "
+                           "background-removal studio preview.", shot)
+        # Honest background-removal preview (NOT labelled as an AI-generated
+        # photoshoot in the UI — see mode == 'isolate'). Used both when no
+        # generative provider is configured AND as a graceful fallback above.
         if cutout is not None:
             try:
                 self._stage(shot, cutout, dest, category, material)
