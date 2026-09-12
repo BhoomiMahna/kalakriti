@@ -6,9 +6,11 @@ secrets (marketplace credentials, JWT keys, LLM keys) never live in code.
 """
 from __future__ import annotations
 
+import os
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Repository layout:
@@ -35,6 +37,15 @@ class Settings(BaseSettings):
     debug: bool = True
     api_base_url: str = "http://localhost:8000"
     frontend_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+
+    # ── Persistent data directory ────────────────────────────────────────────
+    # On ephemeral hosts (Railway/Render free tier) the container filesystem is
+    # WIPED on every redeploy/restart — which erases the SQLite DB and uploaded
+    # media, logging every user out ("Artisan not found" 401). Mount a persistent
+    # volume and set DATA_DIR to its path (e.g. /data): the database and storage
+    # are then placed under it and survive restarts. Explicit DATABASE_URL /
+    # STORAGE_DIR still win if set.
+    data_dir: str = ""
 
     # ── Database ─────────────────────────────────────────────────────────────
     database_url: str = f"sqlite:///{(BACKEND_DIR / 'artisan.db').as_posix()}"
@@ -137,6 +148,18 @@ class Settings(BaseSettings):
     ondc_subscriber_id: str = ""
     ondc_signing_private_key: str = ""
     ondc_unique_key_id: str = ""
+
+    @model_validator(mode="after")
+    def _route_persistent_paths(self) -> "Settings":
+        """Place the DB + uploads under DATA_DIR (a persistent volume) unless the
+        operator set DATABASE_URL / STORAGE_DIR explicitly."""
+        if self.data_dir:
+            base = Path(self.data_dir)
+            if "DATABASE_URL" not in os.environ:
+                self.database_url = f"sqlite:///{(base / 'artisan.db').as_posix()}"
+            if "STORAGE_DIR" not in os.environ:
+                self.storage_dir = str(base / "storage")
+        return self
 
     @property
     def cors_origins(self) -> list[str]:
