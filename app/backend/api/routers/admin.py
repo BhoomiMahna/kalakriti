@@ -1,6 +1,8 @@
 """Platform admin: health, integration status, failed jobs (spec §3, §22)."""
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -13,6 +15,7 @@ from services.image_service import get_photoshoot_service
 from services.pricing_service import get_pricing_service
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+logger = logging.getLogger("admin")
 
 
 @router.get("/health")
