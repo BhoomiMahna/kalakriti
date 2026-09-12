@@ -68,6 +68,42 @@ def image_info() -> dict:
     }
 
 
+@router.get("/image/selftest")
+def image_selftest() -> dict:
+    """Run ONE real generative image request from the backend and report the
+    outcome — safely (never returns or logs the API key). Isolates a genuine
+    Gemini API failure (ok=false + error) from a downstream validation failure
+    (ok=true here, but shots still fail in the pipeline)."""
+    import io
+    import os
+    from PIL import Image
+    from services.image_service import get_photoshoot_service, build_prompt
+
+    svc = get_photoshoot_service()
+    out: dict = {
+        "provider": svc.provider or None,
+        "generative": svc.generative,
+        "model": settings.gemini_image_model if svc.generative else None,
+        "gemini_key_configured": bool(settings.gemini_api_key or settings.google_api_key),
+    }
+    if not svc.generative:
+        out["note"] = "No generative provider configured — using isolation preview."
+        return out
+
+    img = Image.new("RGB", (640, 640), (170, 140, 95))
+    prompt = build_prompt("hero", "bowl", "brass", "handmade decorated brass bowl")
+    dest = os.path.join(settings.storage_dir, "_selftest_gemini.jpg")
+    try:
+        svc._provider_generate(prompt, img, dest)   # raw generate, bypasses validation
+        out["ok"] = True
+        out["output_bytes"] = os.path.getsize(dest) if os.path.exists(dest) else 0
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("[IMAGE] selftest generation failed")
+        out["ok"] = False
+        out["error"] = str(exc)[:600]
+    return out
+
+
 @router.get("/stats")
 def stats(db: Session = Depends(get_db)) -> dict:
     return {

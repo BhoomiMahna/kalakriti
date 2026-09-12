@@ -355,7 +355,7 @@ const STEP_KEYS = ["understand", "photos", "transcribe", "describe", "story", "p
 // backend job stalls on a slow host. The backend caps the photoshoot step, so a
 // healthy run finishes well within this; if we hit it, the product still exists
 // and the user is offered a way forward (review it, or retry) instead of a freeze.
-const MAX_WAIT_MS = 75000;
+const MAX_WAIT_MS = 130000;
 
 function StepProcessing({ t, payload, onDone }) {
   const [steps, setSteps] = useState([]);

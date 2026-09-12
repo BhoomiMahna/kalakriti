@@ -295,13 +295,16 @@ class PhotoshootService:
         # materially different from the source
         if not self._materially_different(original, dest):
             return False
-        # a product is still present (rembg coverage in a sane band)
+        # A product must still be present. Only reject a near-EMPTY frame — a
+        # clean hero studio shot legitimately fills most of the frame (high
+        # coverage), so there is NO upper bound (the old cov>0.98 gate wrongly
+        # rejected good full-frame product shots).
         if self._rembg_available():
             try:
                 from rembg import remove
                 cov = self._coverage(self._trim_to_alpha(remove(out, session=_get_rembg())) or out)
-                if cov < 0.03 or cov > 0.98:
-                    logger.warning("[IMAGE] Validation: product not clearly present (cov=%.2f)", cov)
+                if cov < 0.02:
+                    logger.warning("[IMAGE] Validation: product not present (cov=%.3f)", cov)
                     return False
             except Exception:  # noqa: BLE001
                 pass
