@@ -291,25 +291,50 @@ def _run_ai_pipeline(job_id: str, inputs: dict[str, Any]) -> None:
         detected = infer_pricing_inputs(
             spoken, product.product_facts,
             meta.get("categories", []), meta.get("materials", []),
+            category_hint=product.category or "",
+            material_hint=product.material or "",
         )
+        logger.info("[PRICE] product=%s category=%s(source=%s) material=%s size=%s "
+                    "cost=%s complexity=%s confidence=%s",
+                    product.id, detected["category"], detected["category_source"],
+                    detected["material"], detected["size_bucket"],
+                    detected["material_cost_inr"], detected["complexity_score"],
+                    detected["confidence"])
         # Persist the detected category/material onto the product.
         product.category = product.category or detected["category"].replace("_", " ")
         if not product.material:
             product.material = detected["material"]
-        price_res = pricing.suggest(
-            category=detected["category"],
-            material=detected["material"],
-            size_bucket=detected["size_bucket"],
-            complexity_score=detected["complexity_score"],
-            material_cost_inr=detected["material_cost_inr"],
-            description=product.short_description or product.title or "",
-        )
-        product.suggested_price = price_res["price"]
-        product.price_low = price_res["low"]
-        product.price_high = price_res["high"]
-        product.price_reasoning = price_res["reasoning"]
-        if product.price is None:
-            product.price = price_res["price"]
+
+        if detected["confidence"] == "low":
+            # No reliable signal to price from. Do NOT emit the cheapest-category
+            # default as if it were a recommendation (that is the ₹260 bug).
+            # Leave price unset so the review screen asks the artisan to set one.
+            product.suggested_price = None
+            product.price_low = None
+            product.price_high = None
+            product.price_reasoning = (
+                "Could not auto-estimate a price — the product details didn't "
+                "identify a known craft category. Please set your price."
+            )
+            logger.warning("[PRICE] product=%s LOW confidence — leaving price unset "
+                           "(no fake default).", product.id)
+        else:
+            price_res = pricing.suggest(
+                category=detected["category"],
+                material=detected["material"],
+                size_bucket=detected["size_bucket"],
+                complexity_score=detected["complexity_score"],
+                material_cost_inr=detected["material_cost_inr"],
+                description=product.short_description or product.title or "",
+            )
+            product.suggested_price = price_res["price"]
+            product.price_low = price_res["low"]
+            product.price_high = price_res["high"]
+            product.price_reasoning = price_res["reasoning"]
+            if product.price is None:
+                product.price = price_res["price"]
+            logger.info("[PRICE] product=%s suggested=Rs%s (range %s-%s)",
+                        product.id, price_res["price"], price_res["low"], price_res["high"])
         _set_step(job, "price", "done"); db.commit()
 
         # 5. Assemble ---------------------------------------------------------

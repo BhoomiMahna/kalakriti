@@ -142,7 +142,13 @@ class PhotoshootService:
 
         out = Path(out_dir)
         out.mkdir(parents=True, exist_ok=True)
-        logger.info("[IMAGE] Input received: %s (category=%s)", input_path, category)
+        key_configured = bool(settings.gemini_api_key or settings.google_api_key)
+        logger.info("[IMAGE] START input=%s category=%s provider=%s generative=%s "
+                    "model=%s gemini_key_configured=%s",
+                    Path(input_path).name, category, self.provider or "(none)",
+                    self.generative,
+                    settings.gemini_image_model if self.generative else "-",
+                    key_configured)
 
         # ── Deterministic demo: a KNOWN source image returns curated pro assets ──
         if settings.image_demo_mode:
@@ -449,22 +455,46 @@ class PhotoshootService:
     def _gemini(self, prompt: str, img_bytes: bytes, dest: str) -> None:
         key = settings.gemini_api_key or settings.google_api_key
         if not key:
-            raise RuntimeError("No Gemini key for image provider")
+            raise RuntimeError("No Gemini key for image provider (set GEMINI_API_KEY)")
+        model = settings.gemini_image_model
         url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-               f"{settings.gemini_image_model}:generateContent?key={key}")
-        body = {"contents": [{"parts": [
-            {"text": prompt},
-            {"inline_data": {"mime_type": "image/jpeg",
-                             "data": base64.b64encode(img_bytes).decode()}},
-        ]}]}
-        resp = httpx.post(url, json=body, timeout=180.0)
-        resp.raise_for_status()
-        for p in resp.json()["candidates"][0]["content"]["parts"]:
+               f"{model}:generateContent")
+        # The original photo IS sent as an image reference (image-to-image), so the
+        # real product stays faithful; the prompt does the studio re-photography.
+        body = {
+            "contents": [{"parts": [
+                {"text": prompt},
+                {"inline_data": {"mime_type": "image/jpeg",
+                                 "data": base64.b64encode(img_bytes).decode()}},
+            ]}],
+            # Ask the image model to actually return an image (Nano-Banana family).
+            "generationConfig": {"responseModalities": ["IMAGE"]},
+        }
+        # Key travels in a header, never in the URL/query (keeps it out of logs).
+        resp = httpx.post(url, json=body,
+                          headers={"x-goog-api-key": key,
+                                   "Content-Type": "application/json"},
+                          timeout=180.0)
+        if resp.status_code >= 400:
+            # Surface the REAL error (auth / model-not-found / quota / bad request)
+            # instead of a generic failure — never logs the key.
+            raise RuntimeError(f"Gemini HTTP {resp.status_code} (model={model}): "
+                               f"{resp.text[:400]}")
+        data = resp.json()
+        candidates = data.get("candidates") or []
+        if not candidates:
+            raise RuntimeError(f"Gemini returned no candidates (model={model}): "
+                               f"{str(data)[:300]}")
+        for p in candidates[0].get("content", {}).get("parts", []):
             inline = p.get("inline_data") or p.get("inlineData")
             if inline and inline.get("data"):
-                Path(dest).write_bytes(base64.b64decode(inline["data"]))
+                raw = base64.b64decode(inline["data"])
+                Path(dest).write_bytes(raw)
+                logger.info("[IMAGE] Gemini returned image: %d bytes (mime=%s) -> %s",
+                            len(raw), inline.get("mime_type") or inline.get("mimeType"),
+                            Path(dest).name)
                 return
-        raise RuntimeError("Gemini returned no image")
+        raise RuntimeError(f"Gemini response contained no image part (model={model})")
 
     def _openai(self, prompt: str, img_bytes: bytes, dest: str) -> None:
         key = settings.openai_api_key

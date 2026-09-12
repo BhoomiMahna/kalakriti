@@ -275,6 +275,11 @@ export default function ProductDetail() {
               )}
             </div>
           )}
+          {p.suggested_price == null && (
+            <p className="mt-2 rounded-lg bg-amber-50 p-2 text-center text-xs text-amber-700">
+              {t("price.couldNotEstimate")}
+            </p>
+          )}
           <div className="mt-3">
             <label className="label">{t("price.enterOwn")}</label>
             <div className="flex gap-2">

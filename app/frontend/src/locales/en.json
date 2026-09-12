@@ -141,7 +141,8 @@
     "range": "Recommended range",
     "basedOn": "Based on your product details and cost information",
     "use": "Use ₹{price}",
-    "enterOwn": "Or enter your own price"
+    "enterOwn": "Or enter your own price",
+    "couldNotEstimate": "We couldn't auto-estimate a price for this product. Please set your own price below."
   },
   "social": {
     "title": "Social channels",
